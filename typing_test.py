@@ -2,42 +2,6 @@ import curses, time, datetime, random
 
 
 def draw(screen):
-    """ 
-    canvas1 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2),                   0,                  0)
-    canvas2 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2),                   0, int(curses.COLS/2))
-    canvas3 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2), int(curses.LINES/2),                  0)
-    canvas4 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2), int(curses.LINES/2), int(curses.COLS/2))
-
-    canvas1.bkgd(' ', curses.color_pair(1))
-    canvas2.bkgd(' ', curses.color_pair(2))
-    canvas3.bkgd(' ', curses.color_pair(3))
-    canvas4.bkgd(' ', curses.color_pair(4))
-
-    height, width = stdscr.getmaxyx()
-    if k == curses.KEY_DOWN:
-        cursor_y = cursor_y + 1
-        cchar = 'v'
-    elif k == curses.KEY_UP:
-        cursor_y = cursor_y - 1
-        cchar = "^"
-    elif k == curses.KEY_RIGHT:
-        cursor_x = cursor_x + 1
-        cchar = ">"
-    elif k == curses.KEY_LEFT:
-        cursor_x = cursor_x - 1
-        cchar = "<"
-       
-    cursor_x = max(0, cursor_x)
-    cursor_x = min(width-1, cursor_x)
-    cursor_y = max(0, cursor_y)
-    cursor_y = min(height-1, cursor_y)
-
-    menu = [("Start", ),
-            ("Settings", ),
-            ("Quit", )
-    ]
-    text = datetime.datetime.now().strftime("%d.%m.%Y, %H:%M:%S") 
-    """
     with open("../../vocabulary.txt", 'r') as file:
         words = [line.rstrip() for line in file.readlines()]
 
