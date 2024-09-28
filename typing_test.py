@@ -1,43 +1,10 @@
-import curses, time, datetime, random
+import curses
+import time
+import datetime
+import random
 
 
 def draw(screen):
-    """ 
-    canvas1 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2),                   0,                  0)
-    canvas2 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2),                   0, int(curses.COLS/2))
-    canvas3 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2), int(curses.LINES/2),                  0)
-    canvas4 = curses.newwin(int(curses.LINES/2), int(curses.COLS/2), int(curses.LINES/2), int(curses.COLS/2))
-
-    canvas1.bkgd(' ', curses.color_pair(1))
-    canvas2.bkgd(' ', curses.color_pair(2))
-    canvas3.bkgd(' ', curses.color_pair(3))
-    canvas4.bkgd(' ', curses.color_pair(4))
-
-    height, width = stdscr.getmaxyx()
-    if k == curses.KEY_DOWN:
-        cursor_y = cursor_y + 1
-        cchar = 'v'
-    elif k == curses.KEY_UP:
-        cursor_y = cursor_y - 1
-        cchar = "^"
-    elif k == curses.KEY_RIGHT:
-        cursor_x = cursor_x + 1
-        cchar = ">"
-    elif k == curses.KEY_LEFT:
-        cursor_x = cursor_x - 1
-        cchar = "<"
-       
-    cursor_x = max(0, cursor_x)
-    cursor_x = min(width-1, cursor_x)
-    cursor_y = max(0, cursor_y)
-    cursor_y = min(height-1, cursor_y)
-
-    menu = [("Start", ),
-            ("Settings", ),
-            ("Quit", )
-    ]
-    text = datetime.datetime.now().strftime("%d.%m.%Y, %H:%M:%S") 
-    """
     with open("../../vocabulary.txt", 'r') as file:
         words = [line.rstrip() for line in file.readlines()]
 
@@ -46,8 +13,6 @@ def draw(screen):
         for line in file.readlines():
             res_t = line.rstrip().split()
             results.append((int(res_t[0]), float(res_t[1])))
-
-    # words = [word for word in words if not ('d' in word)]
 
     word_count = 60
     string = ''.join([random.choice(words)+'\n' if i % 6 == 0 else random.choice(words)+' ' for i in range(1, word_count+1)])[:-1]
@@ -199,7 +164,7 @@ def draw(screen):
     screen.refresh()
     main_scr.refresh()
 
-    if res[1] > 60:
+    if user_accuracy > 60:
         results.append((round(user_wpm), user_accuracy))
         results = sorted(results, reverse=True)[:20]
         for i, res in enumerate(results, start=1):
@@ -216,7 +181,7 @@ def draw(screen):
 
     curses.curs_set(False) 
     foot_scr.clear()
-    foot_scr.addstr(0, anim_count, "x_x" if user_accuracy < 50.0 else "0_o")
+    foot_scr.addstr(0, anim_count, "x_x" if user_accuracy < 60.0 else "0_o")
     screen.refresh()
     foot_scr.refresh()
 
@@ -230,7 +195,7 @@ def draw(screen):
         y, x = screen_animate.pop(random.randint(0, len(screen_animate)-1))
         main_scr.addch(y+main_scr_offset, x+main_scr_offset, random.choice(r"!$%^&*()_+`[];',./#-}{:@<>?"), curses.color_pair(random.randint(4, 256)))
         main_scr.refresh()
-        curses.napms(5 )
+        curses.napms(5)
 
     screen.refresh()
     main_scr.refresh()
